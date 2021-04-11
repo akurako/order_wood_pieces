@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 public class OrderPlywood {
 
-    File order = null;
-    int order_number = 1;
-    double total_sq = 0;
-    double price_per_sqm = 0.35;
+    private File order = null;
+    private int order_number = 1;
+    private double total_sq = 0;
+    private double price_per_sqm = 0.35;
+    private boolean order_file_correct = false;
 
 
     public void add_New(String size) throws IOException {
@@ -30,7 +31,6 @@ public class OrderPlywood {
     public void CreateNewOrder() {
         total_sq = 0;
         String filename = "order";
-        boolean order_file_correct = false;
         while (order_file_correct == false) {
 
             order = new File("orders/" + filename + "_" + order_number + ".txt");
@@ -44,7 +44,7 @@ public class OrderPlywood {
         }
     }
 
-    public String CalculateAllPieces() throws FileNotFoundException {
+    public void CalculateAllPieces() throws FileNotFoundException {
 
         InputStreamReader isr = new FileReader(order);
         Scanner read_file = new Scanner(isr);
@@ -55,12 +55,12 @@ public class OrderPlywood {
 
         }
 
-        return "Total " + total_sq + " cubic meters.";
+        System.out.println( "Total " + total_sq + " cubic meters.");
     }
-    public String CalculateTotalPrice(){
+    public void CalculateTotalPrice(){
         double price;
         price = total_sq * price_per_sqm;
 
-        return "Total price: "+price+"$";
+        System.out.println("Total price: "+price+"$");
     }
 }

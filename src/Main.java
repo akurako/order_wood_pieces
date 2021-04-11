@@ -1,14 +1,15 @@
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        OrderPlywood op = new OrderPlywood();
-        op.CreateNewOrder();
-        op.add_New("400x1000");
-        op.add_New("1000x2000");
-        System.out.println(op.CalculateAllPieces());
-        System.out.println(op.CalculateTotalPrice());
+        boolean running = true;
+        ParseCommands pc = new ParseCommands();
+        Scanner input = new Scanner(System.in);
+        while (running) {
+            pc.ParseInput(input.nextLine());
+        }
     }
 }
