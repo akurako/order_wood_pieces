@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -30,10 +31,9 @@ public class OrderPlywood {
 
     public void CreateNewOrder() {
         total_sq = 0;
-        String filename = "order";
         while (order_file_correct == false) {
 
-            order = new File("orders/" + filename + "_" + order_number + ".txt");
+            order = new File("orders/order_" + order_number + ".txt");
             if (order.exists()) {
                 order_number++;
                 order = null;
@@ -44,7 +44,7 @@ public class OrderPlywood {
         }
     }
 
-    public void CalculateArea() throws FileNotFoundException {
+    public void CalculateArea() throws IOException {
 
         InputStreamReader isr = new FileReader(order);
         Scanner read_file = new Scanner(isr);
@@ -56,6 +56,7 @@ public class OrderPlywood {
         }
 
         System.out.println("Total " + total_sq + " cubic meters.");
+        isr.close();
     }
 
     public void CalculatePrice() {
@@ -64,7 +65,28 @@ public class OrderPlywood {
         price = total_sq * price_per_sqm;
         System.out.println("Total price: " + price + "$");
     }
+
     public void ListOrders() {
+        String[] orders_list;
+        order = new File("orders");
+        orders_list = order.list();
+        System.out.println(Arrays.toString(orders_list));
+
+    }
+
+    public void OpenOrder(int number){
+        order = new File("orders/order_" + number + ".txt");
+        System.out.println(order.getName() + " selected.");
+    }
+    public void ListPieces() throws FileNotFoundException {
+        InputStreamReader isr = new FileReader(order);
+        Scanner read_file = new Scanner(isr);
+        System.out.println("Pieces list:");
+
+        while (read_file.hasNext()) {
+            String a[] = read_file.nextLine().split(",");
+            System.out.println(a[0]+"mm x "+a[1]+"mm");
+        }
 
     }
 }
