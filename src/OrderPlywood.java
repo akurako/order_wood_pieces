@@ -11,7 +11,7 @@ public class OrderPlywood {
     private boolean order_file_correct = false;
 
 
-    public void add_New(String size) throws IOException {
+    public void AddNewPiece(String size) throws IOException {
 
         OutputStreamWriter ost = new FileWriter(order, true);
 
@@ -44,23 +44,27 @@ public class OrderPlywood {
         }
     }
 
-    public void CalculateAllPieces() throws FileNotFoundException {
+    public void CalculateArea() throws FileNotFoundException {
 
         InputStreamReader isr = new FileReader(order);
         Scanner read_file = new Scanner(isr);
+
         while (read_file.hasNext()) {
             String a[] = read_file.nextLine().split(",");
-            double piece_sq = (Double.parseDouble(a[0])/1000) * (Double.parseDouble(a[1])/1000);
+            double piece_sq = (Double.parseDouble(a[0]) / 1000) * (Double.parseDouble(a[1]) / 1000);
             total_sq = total_sq + piece_sq;
-
         }
 
-        System.out.println( "Total " + total_sq + " cubic meters.");
+        System.out.println("Total " + total_sq + " cubic meters.");
     }
-    public void CalculateTotalPrice(){
+
+    public void CalculatePrice() {
+
         double price;
         price = total_sq * price_per_sqm;
+        System.out.println("Total price: " + price + "$");
+    }
+    public void ListOrders() {
 
-        System.out.println("Total price: "+price+"$");
     }
 }
